@@ -1,0 +1,78 @@
+# fadeloop
+#Creates endlessly loop of clip with cross fade
+Group {
+name FadeLoop3
+tile_color 0xffffffff
+note_font "Bitstream Vera Sans Italic Italic Italic Italic Italic Italic Italic Italic Italic"
+selected true
+xpos 4243
+ypos 9636
+addUserKnob {20 User}
+addUserKnob {3 start l "Input frame range"}
+start 1
+addUserKnob {3 end l "" -STARTLINE}
+end 100
+addUserKnob {22 inputrange l "Input Range" -STARTLINE T "n = nuke.thisNode()\nf = n.firstFrame()\nl = n.lastFrame() \n\nn\['start'].setValue(f)\nn\['end'].setValue(l)"}
+addUserKnob {3 fadeframes l "Fade Frames"}
+fadeframes 10
+addUserKnob {3 offset l Offset}
+addUserKnob {26 ""}
+addUserKnob {26 text l "" +STARTLINE T "Fade loop v1.1 by Richard Frazer\nRebuild of version by Sebastian Hesselsjo"}
+}
+Input {
+inputs 0
+name Input1
+xpos 518
+ypos 86
+}
+Dot {
+name Dot4
+xpos 552
+ypos 235
+}
+set Nf65b4030 [stack 0]
+push $Nf65b4030
+TimeOffset {
+time_offset {{-(loopframes-parent.fadeframes)}}
+time ""
+name TimeOffset2
+xpos 390
+ypos 281
+addUserKnob {20 User}
+addUserKnob {3 loopframes l "loop frames"}
+loopframes {{((parent.end+1)-parent.start)}}
+}
+Dissolve {
+inputs 2
+which {{clamp((frame-parent.start)/parent.fadeframes)}}
+name Dissolve3
+xpos 518
+ypos 352
+addUserKnob {20 User}
+addUserKnob {3 loopframes l "loop frames"}
+loopframes {{((parent.end+1)-parent.start)}}
+addUserKnob {7 fadepc}
+fadepc {{parent.fadeframes/loopframes}}
+addUserKnob {3 fadeframes}
+fadeframes {{parent.fadeframes}}
+}
+TimeWarp {
+lookup {{(parent.start+((frame-parent.start)%loopframes))+parent.offset C x1001 1001 x1062 1062}}
+time ""
+name TimeWarp1
+selected true
+xpos 518
+ypos 487
+addUserKnob {20 User}
+addUserKnob {3 loopframes}
+loopframes {{((parent.end+1)-parent.start)-parent.fadeframes}}
+}
+Output {
+name Output1
+xpos 518
+ypos 590
+}
+end_group
+
+
+
