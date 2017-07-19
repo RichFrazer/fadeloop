@@ -1,5 +1,5 @@
 # fadeloop
-#Creates endlessly loop of clip with cross fade
+#Creates endless loop of clip with cross fade
 Group {
  name FadeLoop
  tile_color 0xffffffff
