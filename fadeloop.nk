@@ -1,18 +1,18 @@
 # fadeloop
 #Creates endless loop of clip with cross fade
 Group {
- name FadeLoop
+ inputs 0
+ name FadeLoop2
  tile_color 0xffffffff
  label "\[value loopin] - \[value loopout]"
  note_font "DejaVu Sans"
- selected true
- xpos 14
- ypos 56
+ xpos -8
+ ypos 7
  addUserKnob {20 User}
  addUserKnob {3 start l "Input frame range"}
  start 1
  addUserKnob {3 end l "" -STARTLINE}
- end 68
+ end 60
  addUserKnob {22 inputrange l "Input Range" -STARTLINE T "n = nuke.thisNode()\nf = n.input(0).firstFrame()\nl = n.input(0).lastFrame() \n\nn\['start'].setValue(f)\nn\['end'].setValue(l)"}
  addUserKnob {3 fadeframes l "Fade Frames"}
  fadeframes 10
@@ -35,8 +35,8 @@ Group {
   xpos 549
   ypos 235
  }
-set N507f800 [stack 0]
-push $N507f800
+set N17494560 [stack 0]
+push $N17494560
  TimeOffset {
   time_offset {{-(loopframes-parent.fadeframes)}}
   name TimeOffset2
